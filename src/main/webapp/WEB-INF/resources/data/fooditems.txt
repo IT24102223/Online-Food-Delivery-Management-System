@@ -1,0 +1,2 @@
+F001,Burger,Delicious beef burger,5.99,CAT001,true
+F002,Pizza,Cheese pizza with tomato sauce,8.99,CAT001,true
