@@ -1,0 +1,390 @@
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.main-container {
+  overflow: hidden;
+}
+
+.main-container,
+.main-container * {
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+}
+
+.main-container {
+  position: relative;
+  width: 1440px;
+  height: 915px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #ffffff, #f6f6f6);
+  overflow: hidden;
+}
+.flex-row-dab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 265.631px;
+  height: 73.198px;
+  margin: 55.802px 0 0 106.5px;
+  z-index: 28;
+}
+.japanese-food {
+  flex-shrink: 0;
+  position: relative;
+  width: 68.597px;
+  height: 73.198px;
+  background: url(https://static.codia.ai/custom_image/2025-03-31/164452/japanese-food-logo.svg)
+    no-repeat center;
+  background-size: cover;
+  z-index: 26;
+  overflow: hidden;
+}
+.cuisine {
+  flex-shrink: 0;
+  position: relative;
+  height: 30px;
+  color: #474747;
+  font-family: Patua One, var(--default-font-family);
+  font-size: 42.66666793823242px;
+  font-weight: 400;
+  line-height: 29.333px;
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: -0.4px;
+  z-index: 28;
+}
+.sign-in-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 30px;
+  position: relative;
+  width: 540px;
+  margin: 41px 0 0 450px;
+  padding: 40px 40px 45px 40px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px 0 rgba(138, 142, 148, 0.05);
+}
+.frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 5px;
+  position: relative;
+  width: 199px;
+  z-index: 1;
+}
+.sign-in-2 {
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  height: 36px;
+  color: #282828;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 2;
+}
+.lets-build-great {
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  height: 22px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 3;
+}
+.frame-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 15px;
+  position: relative;
+  width: 460px;
+  z-index: 4;
+}
+.frame-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 20px;
+  position: relative;
+  width: 460px;
+  z-index: 5;
+}
+.component {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 5px;
+  position: relative;
+  width: 460px;
+  z-index: 6;
+}
+.your-name {
+  align-self: stretch;
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  min-width: 0;
+  height: 22px;
+  color: #282828;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 7;
+}
+.frame-5 {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 10px;
+  position: relative;
+  min-width: 0;
+  padding: 15px 15px 15px 15px;
+  background: #ffffff;
+  border: 1px solid #e8e9ea;
+  z-index: 8;
+  border-radius: 6px;
+}
+.enter-input {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  height: 22px;
+  color: #949ca9;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 9;
+}
+.component-6 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 5px;
+  position: relative;
+  width: 460px;
+  z-index: 10;
+}
+.password {
+  align-self: stretch;
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  min-width: 0;
+  height: 22px;
+  color: #282828;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 11;
+}
+.frame-7 {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 10px;
+  position: relative;
+  min-width: 0;
+  padding: 15px 15px 15px 15px;
+  background: #ffffff;
+  border: 1px solid #e8e9ea;
+  z-index: 12;
+  border-radius: 6px;
+}
+.enter-input-8 {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  height: 22px;
+  color: #949ca9;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 13;
+}
+.eye {
+  flex-shrink: 0;
+  position: relative;
+  width: 19px;
+  height: 14px;
+  background: url(https://static.codia.ai/custom_image/2025-03-31/164452/password-eye-icon.svg)
+    no-repeat center;
+  background-size: cover;
+  z-index: 14;
+}
+.frame-9 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 15px;
+  position: relative;
+  width: 460px;
+  z-index: 15;
+}
+.component-a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 10px;
+  position: relative;
+  width: 460px;
+  padding: 14px 49px 14px 49px;
+  background: #2f93f6;
+  z-index: 16;
+  border-radius: 6px;
+}
+.button {
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  height: 24px;
+  color: #ffffff;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 17;
+}
+.component-b {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 10px;
+  position: relative;
+  width: 124px;
+  z-index: 18;
+}
+.forgot-password {
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: relative;
+  height: 22px;
+  color: #009ef7;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 19;
+}
+.frame-c {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 20px;
+  position: relative;
+  width: 223px;
+  z-index: 20;
+}
+.component-d {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 10px;
+  position: relative;
+  width: 223px;
+  z-index: 21;
+}
+.sign-up {
+  flex-shrink: 0;
+  position: relative;
+  width: 223px;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  text-overflow: initial;
+  white-space: nowrap;
+  z-index: 22;
+}
+.dont-have-account {
+  position: relative;
+  color: #282828;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
+.empty {
+  position: relative;
+  color: #7a828a;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
+.sign-up-e {
+  position: relative;
+  color: #009ef7;
+  font-family: Poppins, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
