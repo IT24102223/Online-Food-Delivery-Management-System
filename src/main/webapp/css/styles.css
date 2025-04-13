@@ -1,0 +1,344 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans';
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.sidebar h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section h4 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.filter-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.price-range {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #ff6f61;
+}
+
+.apply-filter {
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.reset-filter {
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    box-sizing: border-box;
+}
+
+.reset-filter:hover {
+    background-color: #333;
+}
+
+
+.apply-filter:hover {
+    background-color: #333;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between Apply Filter and Reset Filters */
+}
+
+.main-content {
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.sort {
+    display: flex;
+    align-items: center;
+}
+
+.sort span {
+    margin-right: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.sort select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.rating {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #f5c518;
+}
+
+.rating span {
+    color: #666;
+    margin-left: 5px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.order-now, .add-to-cart {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.order-now {
+    background-color: #ff6f61;
+    color: #fff;
+}
+
+.order-now:hover {
+    background-color: #e65b50;
+}
+
+.add-to-cart {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.add-to-cart:hover {
+    background-color: #f5f5f5;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px; /* Space between pagination items */
+}
+
+.pagination-link {
+    text-decoration: none; /* Remove underlines from links */
+    color: inherit; /* Inherit text color to avoid default blue link color */
+}
+
+.pagination-number {
+    padding: 8px 12px; /* Slightly smaller padding for a compact look */
+    background-color: #fff;
+    border: 1px solid #ddd; /* Add a subtle border */
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif; /* Explicitly set to ensure consistency */
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s; /* Smooth hover transition */
+}
+
+.pagination-number:hover {
+    background-color: #f5f5f5; /* Match existing hover effect */
+}
+
+.pagination-number.active {
+    background-color: #ff6f61; /* Accent color for active page */
+    color: #fff; /* White text for contrast */
+    border-color: #ff6f61; /* Match border to background */
+    font-weight: 500; /* Slightly bolder for emphasis */
+}
+
+.pagination-btn {
+    padding: 8px 16px; /* Slightly smaller than Apply Filter (10px) for balance */
+    background-color: #000; /* Match Apply Filter button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif; /* Explicitly set */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s; /* Smooth hover transition */
+}
+
+.pagination-btn:hover {
+    background-color: #333; /* Match Apply Filter hover */
+}
+
+/* Pulse animation for button click */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 0.3s ease-in-out;
+}
+
+/* Bounce animation for icons */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+}
+
+.bounce {
+    animation: bounce 0.5s ease-in-out;
+}
+
+/* Toast notification */
+.toast {
+    position: fixed;
+    top: 20px; /* Near the top of the page */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: #ff6f61; /* Match accent color */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+#priceTooltip {
+    display: none;
+    position: absolute;
+    background: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+

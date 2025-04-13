@@ -2,16 +2,25 @@ package controller;
 
 import model.FoodItem;
 import service.FoodItemService;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet("/food-items")
 public class FoodItemServlet extends HttpServlet {
-    private FoodItemService foodItemService = new FoodItemService();
+    private FoodItemService foodItemService;
 
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.foodItemService = new FoodItemService(getServletContext());
+    }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -35,6 +44,7 @@ public class FoodItemServlet extends HttpServlet {
         }
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -50,13 +60,63 @@ public class FoodItemServlet extends HttpServlet {
 
     private void listFoodItems(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //List<FoodItem> foodItems = foodItemService.getAllFoodItems();
-        //request.setAttribute("foodItems", foodItems);
-        //request.getRequestDispatcher("/WEB-INF/views/food/list.jsp").forward(request, response);
+        // Get pagination parameters, default to page 1 if invalid or not provided
+        int page;
+        try {
+            page = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
+        } catch (NumberFormatException e) {
+            page = 1; // Default to page 1 on invalid input
+        }
+        int itemsPerPage = 9; // Number of items per page (matches 3x3 grid layout)
 
-        List<FoodItem> popularItems = foodItemService.getPopularItems(); // Implement this in your service
+        // Check for reset parameter
+        boolean isReset = "true".equals(request.getParameter("reset"));
+        String[] selectedCategories = isReset ? null : request.getParameterValues("categories"); // Clear categories if reset
+        String priceRangeStr = isReset ? "500" : request.getParameter("priceRange"); // Default to 500 if reset
+        String sortBy = isReset ? "highToLow" : request.getParameter("sortBy"); // Default to highToLow if reset
+
+        // Parse price range
+        double maxPrice;
+        try {
+            maxPrice = priceRangeStr != null && !priceRangeStr.trim().isEmpty() ? Double.parseDouble(priceRangeStr) : 500.0;
+        } catch (NumberFormatException e) {
+            maxPrice = 500.0; // Default to max if invalid
+        }
+
+        // Fetch paginated food items with filters
+        List<FoodItem> allItems = foodItemService.getAllFoodItems(); // Get all items first
+        List<FoodItem> filteredItems = foodItemService.filterFoodItems(allItems, selectedCategories, maxPrice); // Apply category and price filters
+
+        // Apply sorting based on sortBy parameter, default to highToLow
+        if (sortBy == null || sortBy.isEmpty() || "highToLow".equals(sortBy)) {
+            filteredItems.sort(Comparator.comparingDouble(FoodItem::getPrice).reversed());
+            sortBy = "highToLow"; // Ensure sortBy is set for JSP
+        } else if ("lowToHigh".equals(sortBy)) {
+            filteredItems.sort(Comparator.comparingDouble(FoodItem::getPrice));
+        }
+
+        // Paginate the sorted and filtered list
+        List<FoodItem> foodItems = foodItemService.getPaginatedFoodItemsFromList(filteredItems, page, itemsPerPage);
+        List<FoodItem> popularItems = foodItemService.getPopularItems(); // Get popular items (unfiltered for now)
+
+        // Calculate total pages and items based on filtered list
+        int totalItems = filteredItems.size(); // Use filtered list size
+        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+
+        // Set attributes for the JSP
+        request.setAttribute("foodItems", foodItems);
         request.setAttribute("popularItems", popularItems);
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("itemsPerPage", itemsPerPage);
+        request.setAttribute("totalItems", totalItems);
+        request.setAttribute("sortBy", sortBy); // Pass sortBy to JSP
+        if (isReset) {
+            request.setAttribute("reset", "true"); // Pass reset flag to JSP
+        }
+
+        // Forward to foods.jsp
+        request.getRequestDispatcher("/foods.jsp").forward(request, response);
     }
 
     private void showAddForm(HttpServletRequest request, HttpServletResponse response)
@@ -82,10 +142,10 @@ public class FoodItemServlet extends HttpServlet {
             throws ServletException, IOException {
         String foodId = request.getParameter("id");
         try {
-            FoodItem foodItem = foodItemService.getAllFoodItems().stream()
-                    .filter(item -> item.getFoodId().equals(foodId))
-                    .findFirst()
-                    .orElseThrow(() -> new ServletException("Food item not found"));
+            FoodItem foodItem = foodItemService.getFoodItemById(foodId);
+            if (foodItem == null) {
+                throw new ServletException("Food item not found");
+            }
             request.setAttribute("foodItem", foodItem);
             request.getRequestDispatcher("/WEB-INF/views/food/edit.jsp").forward(request, response);
         } catch (IOException e) {
@@ -122,6 +182,4 @@ public class FoodItemServlet extends HttpServlet {
             throw new ServletException("Error deleting food item", e);
         }
     }
-
-    // Implement similar methods for edit/update/delete
 }

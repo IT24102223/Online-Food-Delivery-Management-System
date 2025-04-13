@@ -1,0 +1,364 @@
+/* Footer-specific styles to avoid conflicts with styles.css and header.css */
+.footer-container {
+    /*width: 1600px;*/
+    max-width: 100%;
+    height: 621px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+}
+
+.footer-bg {
+    max-width: 100%;
+    height: 621px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-content {
+    width: 1296px;
+    height: 473px;
+    display: flex;
+    position: absolute;
+    top: 120px;
+    left: 152px;
+    align-items: flex-start;
+}
+
+/* Bottom Section */
+.footer-bottom {
+    width: 1296px;
+    height: 54px;
+    display: flex;
+    position: absolute;
+    top: 419px;
+    left: 0;
+    align-items: flex-start;
+}
+
+.footer-copyright {
+    color: #ADB29E;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    position: absolute;
+    top: 30px;
+    left: 436px;
+    text-align: left;
+}
+
+.footer-divider {
+    width: 1296px;
+    height: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Top Section */
+.footer-top {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    gap: 135px;
+    align-items: flex-start;
+}
+
+/* Column 1 */
+.footer-col-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.footer-logo-container {
+    width: 211px;
+    height: 55px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+}
+
+.footer-logo-img {
+    width: 56px;
+    height: 55px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-logo-text-container {
+    width: 182.6666717529297px;
+    height: 38.66666793823242px;
+    display: flex;
+    position: absolute;
+    top: 8px;
+    left: 28.5px;
+    align-items: flex-start;
+}
+
+.footer-logo-text {
+    color: #FFFFFF;
+    font-size: 42.66666793823242px;
+    font-family: 'Patua One', sans-serif;
+    font-weight: 400;
+    line-height: 29.33333396911621px;
+    position: absolute;
+    top: 4px;
+    left: 41.333335876464844px;
+}
+
+.footer-description {
+    color: #ADB29E;
+    width: 293px;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.footer-social-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+}
+
+.footer-social-bg {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-social-icon-twitter {
+    width: 13.967408180236816px;
+    height: 11.290321350097656px;
+    display: flex;
+    position: absolute;
+    top: 12.423828125px;
+    left: 11.28125px;
+    align-items: flex-start;
+}
+
+.footer-social-icon-twitter-img {
+    width: 14px;
+    height: 11px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-social-icon-facebook {
+    width: 7.903224945068359px;
+    height: 15.218616485595703px;
+    display: flex;
+    position: absolute;
+    top: 10.166015625px;
+    left: 13.546875px;
+    align-items: flex-start;
+}
+
+.footer-social-icon-facebook-img {
+    width: 8px;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-social-icon-instagram {
+    width: 16.935482025146484px;
+    height: 16.936290740966797px;
+    display: flex;
+    position: absolute;
+    top: 9.0380859375px;
+    left: 9.03125px;
+    align-items: flex-start;
+}
+
+.footer-social-icon-instagram-img-1 {
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-social-icon-instagram-img-2 {
+    width: 9px;
+    height: 9px;
+    position: absolute;
+    top: 4.1240234375px;
+    left: 4.1171875px;
+}
+
+.footer-social-icon-instagram-img-3 {
+    width: 2px;
+    height: 2px;
+    position: absolute;
+    top: 2.93359375px;
+    left: 11.984375px;
+}
+
+.footer-social-icon-github {
+    width: 16.199739456176758px;
+    height: 15.806449890136719px;
+    display: flex;
+    position: absolute;
+    top: 9.0380859375px;
+    left: 10.1796875px;
+    align-items: flex-start;
+}
+
+.footer-social-icon-github-img {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Column 2 */
+.footer-col-2 {
+    display: flex;
+    gap: 120px;
+    align-items: flex-start;
+}
+
+.footer-col-2-section {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.footer-col-2-heading {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+}
+
+.footer-col-2-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.footer-col-2-link {
+    color: #DBDFD0;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    text-decoration: none;
+    text-align: left;
+}
+
+/* Column 3 */
+.footer-col-3 {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.footer-col-3-heading {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+}
+
+.footer-gallery {
+    width: 403px;
+    height: 355px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+}
+
+.footer-gallery-img-container {
+    width: 194px;
+    height: 170px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    background-color: #D9D9D9;
+}
+
+.footer-gallery-img-1 {
+    top: 0;
+    left: 0;
+}
+
+.footer-gallery-img-2 {
+    top: 0;
+    left: 209px;
+}
+
+.footer-gallery-img-3 {
+    top: 185px;
+    left: 0;
+}
+
+.footer-gallery-img-4 {
+    top: 185px;
+    left: 209px;
+}
+
+.footer-gallery-img-1 img {
+    width: 222px;
+    height: 176px;
+    position: absolute;
+    top: 0;
+    left: -17px;
+    border-radius: 12px;
+}
+
+.footer-gallery-img-2 img {
+    width: 194px;
+    height: 170px;
+    position: absolute;
+    top: 0;
+    left: -0.22265625px;
+    border-radius: 12px;
+}
+
+.footer-gallery-img-3 img {
+    width: 244px;
+    height: 170px;
+    position: absolute;
+    top: 0;
+    left: -50px;
+    border-radius: 12px;
+}
+
+.footer-gallery-img-4 img {
+    width: 236px;
+    height: 208px;
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    border-radius: 12px;
+}
