@@ -2105,25 +2105,20 @@
   text-align: left;
   line-height: 24px;
 }
- 
+
 .homepage-button4 {
-  top: 3.5px;
-  left: 1172.5px;
-  width: 94px;
-  height: 48px;
-  display: flex;
   position: absolute;
-  align-items: flex-start;
-  flex-shrink: 1;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
 }
- 
-.homepage-button5 {
-  gap: 10px;
-  top: 0px;
-  left: 0px;
+
+.homepage-button5, .homepage-button6 {
   display: flex;
   padding: 12px 24px;
-  position: absolute;
   align-items: center;
   border-color: rgba(43, 46, 35, 1);
   border-style: solid;
@@ -2131,6 +2126,8 @@
   border-radius: 118px;
   justify-content: center;
 }
+
+
  
 .homepage-text106 {
   color: var(--dl-color-neutral-07);
