@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Food Delivery</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        .error-box {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            position: relative;
+            animation: fadeIn 0.5s ease-in-out;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .error-box .close-btn {
+            background: none;
+            border: none;
+            color: #721c24;
+            font-size: 18px;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <div class="logo-wrapper">
+            <div class="logo-image"></div>
+            <a href="index.html" class="logo-text">QuickBites</a>
+        </div>
+        <div class="welcome-container">
+            <div class="welcome-text">
+                <h2>Welcome Back!</h2>
+                <p>Login to manage your food orders and deliveries efficiently.</p>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="form-wrapper">
+            <h3>Login</h3>
+            <p class="subtext">Access your account</p>
+
+            <!-- ERROR MESSAGE BLOCK -->
+            <div id="error-message" style="display: none;" class="error-box">
+                <span>Invalid email or password. Please try again.</span>
+                <button onclick="document.getElementById('error-message').style.display='none'" class="close-btn">&times;</button>
+            </div>
+
+            <form method="post" action="ReadUserServlet">
+                <div class="input-group">
+                    <label class="label" for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label class="label" for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+
+            <div class="signup-link">
+                Don't have an account? <a href="signup.html">Sign up</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Display Script -->
+<script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("error") === "1") {
+        document.getElementById("error-message").style.display = "block";
+    }
+</script>
+</body>
+</html>

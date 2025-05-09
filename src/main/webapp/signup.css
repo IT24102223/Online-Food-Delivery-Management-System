@@ -1,0 +1,240 @@
+/* Reset and base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* Left Section */
+.left {
+    background: url('images/Bg2.jpg') no-repeat center center/cover;
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+}
+
+/* Logo Wrapper */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    z-index: 2;
+}
+
+.logo-image {
+    width: 60px;
+    height: 60px;
+    background: url(https://static.codia.ai/custom_image/2025-03-31/163537/japanese-food-logo.svg) no-repeat center;
+    background-size: contain;
+}
+
+.logo-text {
+    font-family: 'Patua One', cursive;
+    font-size: 36px;
+    margin-left: 12px;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+}
+
+/* Welcome Container perfectly centered */
+.welcome-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Welcome Text */
+.welcome-text {
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    max-width: 300px;
+}
+
+.welcome-text h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.welcome-text p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* Right Section */
+.right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: white;
+}
+
+/* Form wrapper */
+.form-wrapper {
+    max-width: 400px;
+    width: 100%;
+    text-align: left; /* <-- Important: Left align the whole form content */
+    padding: 20px;
+}
+
+/* Title */
+.form-wrapper h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 8px;
+    text-align: center; /* Keep title centered */
+}
+
+/* Subtext */
+.subtext {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Input group */
+.input-group {
+    margin-bottom: 14px; /* Compact but not cramped */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Label and input aligned left */
+}
+
+.input-group label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background: linear-gradient(to right, #ff6a42, #fd9a6d);
+}
+
+/* Already have an account link */
+.already-have-account {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #777;
+    text-align: center;
+}
+
+.already-have-account a {
+    color: #ff7e5f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.already-have-account a:hover {
+    text-decoration: underline;
+}
+
+
+/* Spinner inside button */
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #ff7e5f;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Toast notification */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 30px;
+    padding: 16px;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.5s ease, bottom 0.5s ease;
+}
+
+/* Show toast */
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+    }
+
+    .left, .right {
+        flex: 1;
+        height: auto;
+    }
+}
