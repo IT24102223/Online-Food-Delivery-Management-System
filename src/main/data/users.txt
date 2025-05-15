@@ -1,0 +1,2 @@
+U001,Ali,customer,ali123,pass123
+U002,Sara,admin,sara_admin,admin123

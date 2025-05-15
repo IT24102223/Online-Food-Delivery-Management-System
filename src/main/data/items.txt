@@ -1,0 +1,2 @@
+I001,Burger,5.99,Fast Food
+I002,Pizza,8.50,Italian
