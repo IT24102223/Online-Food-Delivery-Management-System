@@ -3,4 +3,39 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+    <servlet>
+        <servlet-name>CreateCategoryServlet</servlet-name>
+        <servlet-class>com.fooddelivery.servlet.CreateCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateCategoryServlet</servlet-name>
+        <url-pattern>/createCategory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ListCategoriesServlet</servlet-name>
+        <servlet-class>com.fooddelivery.servlet.ListCategoriesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListCategoriesServlet</servlet-name>
+        <url-pattern>/listCategories</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <servlet-class>com.fooddelivery.servlet.UpdateCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <url-pattern>/updateCategory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteCategoryServlet</servlet-name>
+        <servlet-class>com.fooddelivery.servlet.DeleteCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCategoryServlet</servlet-name>
+        <url-pattern>/deleteCategory</url-pattern>
+    </servlet-mapping>
 </web-app>
