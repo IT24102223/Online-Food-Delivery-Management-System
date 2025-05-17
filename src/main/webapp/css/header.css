@@ -1,0 +1,291 @@
+.header-container {
+    max-width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000; /* Added to ensure header stays above hero */
+}
+
+.header-inner {
+    width: 100%;
+    max-width: 1200px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: -100px; /* Shift logo 200px left */
+}
+
+.logo-container img {
+    width: 100px; /* Updated to 100px */
+    height: 100px; /* Updated to 100px */
+    margin-right: 12px;
+}
+
+.logo-container a {
+    color: #172126;
+    font-size: 50px;
+    font-family: 'Patua One', sans-serif;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.login-signup {
+    display: flex;
+    gap: 12px;
+    margin-right: -150px; /* Shift buttons 200px right */
+    margin-top: -60px;
+}
+
+.login-btn,
+.signup-btn,
+.profile-btn,
+.logout-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.login-btn {
+    border: 2px solid #ad343e;
+    background: none;
+    color: #ad343e;
+}
+
+.login-btn:hover {
+    background-color: #ad343e;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.signup-btn {
+    border: none;
+    background: #ad343e;
+    color: #ffffff;
+}
+
+.signup-btn:hover {
+    background-color: #9c2d36;
+    transform: scale(1.05);
+}
+
+.profile-btn {
+    border: 2px solid #2e86ab; /* Blue tone for profile */
+    background: none;
+    color: #2e86ab;
+}
+
+.profile-btn:hover {
+    background-color: #2e86ab;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.logout-btn {
+    border: none;
+    background: #6c757d; /* Neutral gray for logout */
+    color: #ffffff;
+}
+
+.logout-btn:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: -30px;
+    margin-right: 20px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-link {
+    color: #172126;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 18px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.nav-link:hover {
+    background-color: #ad343e;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.hamburger div {
+    width: 28px;
+    height: 3px;
+    background-color: #172126;
+    margin: 5px 0;
+}
+
+/* Cart Button */
+.cart-button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.cart-button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #ff6f61;
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 24px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.cart-button a:hover {
+    background-color: #e65b50;
+    transform: scale(1.1);
+}
+
+.cart-button .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #fff;
+    color: #ff6f61;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 120px;
+        right: 0;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 15px 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        align-items: flex-end;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-link {
+        padding: 10px;
+        text-align: right;
+        width: 100%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .login-signup {
+        flex-direction: column;
+        gap: 8px;
+        margin-right: 50px; /* Adjusted for hamburger icon space */
+        margin-top: 15px;
+    }
+
+    .top-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .nav-container {
+        justify-content: center;
+        margin-right: 0;
+    }
+
+    .logo-container {
+        margin-left: 15px; /* Reset for mobile to align with left edge */
+    }
+
+    .logo-container img {
+        width: 80px; /* Slightly smaller for mobile */
+        height: 80px;
+    }
+
+    .logo-container a {
+        font-size: 40px;
+    }
+
+    .cart-button {
+        bottom: 10px;
+        right: 20px;
+    }
+
+    .cart-button a {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .cart-button .cart-count {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+
+    .login-btn,
+    .signup-btn,
+    .profile-btn,
+    .logout-btn {
+        width: 100%; /* Ensure full width on mobile */
+        text-align: center;
+    }
+}
