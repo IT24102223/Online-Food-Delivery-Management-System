@@ -87,7 +87,7 @@ public class Order {
     }
 
     public static Order fromCSV(String csv, List<Customer> customers, List<FoodItem> foodItems) {
-        String[] data = csv.split(",", -1); // -1 to include trailing empty fields
+        String[] data = csv.split(",", -1);
         if (data.length < 6) {
             throw new IllegalArgumentException("Invalid order CSV format: " + csv);
         }
