@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class Order {
     private final String orderId;
@@ -125,7 +126,7 @@ public class Order {
                 .filter(c -> customerId.equals(c.getUserId()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(
-                        "Customer not found for ID: " + customerId + " in provided list: " + customers));
+                        "Customer not found for ID: " + customerId + " in provided list"));
 
         List<OrderItem> items = new ArrayList<>();
         for (String itemEntry : itemsStr.split(";")) {
