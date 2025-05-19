@@ -117,6 +117,10 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .order-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
         .back-btn {
             background-color: #f5f5f5;
             color: #333;
@@ -174,7 +178,7 @@
     </div>
     <div class="order-summary">
         <h2>Order summary</h2>
-        <form action="${pageContext.request.contextPath}/order/create" method="post">
+        <form id="checkoutForm" action="${pageContext.request.contextPath}/order/create" method="post">
             <c:if test="${not empty sessionScope.user.cart.items}">
                 <table class="table">
                     <thead>
@@ -198,16 +202,32 @@
                 </table>
                 <div class="summary-row total">
                     <span>Total</span>
-                    <span>${sessionScope.user.cart.total}</span>
+                    <span>${sessionScope.user.cart.items.stream().mapToDouble(item -> item.quantity * item.foodItem.price).sum()}</span>
                 </div>
             </c:if>
             <c:if test="${empty sessionScope.user.cart.items}">
                 <p class="summary-row">Your cart is empty. Please add items to your cart before placing an order.</p>
             </c:if>
-            <button type="submit" class="order-btn" <c:if test="${empty sessionScope.user.cart.items}">disabled</c:if>>Confirm Order</button>
+            <button type="submit" class="order-btn" id="submitBtn" <c:if test="${empty sessionScope.user.cart.items}">disabled</c:if>>Confirm Order</button>
             <a href="${pageContext.request.contextPath}/order/list" class="back-btn">Back to Orders</a>
         </form>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('checkoutForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const hasItems = ${not empty sessionScope.user.cart.items};
+        if (!hasItems) {
+            submitBtn.disabled = true;
+        }
+        form.addEventListener('submit', (e) => {
+            if (!hasItems) {
+                e.preventDefault();
+                alert('Your cart is empty. Please add items to proceed.');
+            }
+        });
+    });
+</script>
 </body>
 </html>
