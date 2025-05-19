@@ -150,7 +150,7 @@ public class OrderServlet extends HttpServlet {
                     try {
                         quantity = Integer.parseInt(quantityStr);
                         if (quantity <= 0) throw new IllegalArgumentException("Quantity must be positive");
-                    } catch (NumberFormatException | IllegalArgumentException e) {
+                    } catch (IllegalArgumentException e) {
                         request.setAttribute("error", "Please enter a valid quantity (positive number).");
                         request.setAttribute("foodItems", foodItems);
                         request.getRequestDispatcher("/WEB-INF/views/orders/menu.jsp").forward(request, response);
