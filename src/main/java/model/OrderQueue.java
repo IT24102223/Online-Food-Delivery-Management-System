@@ -18,9 +18,9 @@ public class OrderQueue {
     private static final String QUEUE_FILE = "/WEB-INF/resources/data/queue.txt";
     private final Queue<Order> pendingOrders;
     private final Queue<Order> processingOrders;
-    private List<Customer> customers; // For loading orders
-    private List<FoodItem> foodItems; // For loading orders
-    private ServletContext servletContext; // For file access
+    private List<Customer> customers;
+    private List<FoodItem> foodItems;
+    private ServletContext servletContext;
 
     public OrderQueue() {
         this.pendingOrders = new LinkedList<>();
@@ -52,12 +52,12 @@ public class OrderQueue {
     }
 
     public synchronized boolean completeOrder(Order order) {
-        if (processingOrders.remove(order)) {
+        boolean removed = processingOrders.remove(order);
+        if (removed) {
             order.updateStatus(Order.Status.DELIVERED);
             saveQueue();
-            return true;
         }
-        return false;
+        return removed;
     }
 
     public synchronized List<Order> getAllOrders() {
@@ -87,24 +87,20 @@ public class OrderQueue {
         }
         System.out.println("Writing queue to: " + realPath);
         try {
-            // Ensure the directory exists
             Path filePath = Paths.get(realPath);
             Files.createDirectories(filePath.getParent());
-            // Create the file if it doesn't exist
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
                 System.out.println("Created new queue.txt at: " + realPath);
             }
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))) {
                 for (Order order : pendingOrders) {
-                    String queueEntry = "PENDING," + order.getOrderId();
-                    writer.write(queueEntry + "\n");
-                    System.out.println("Wrote to queue.txt: " + queueEntry);
+                    writer.write("PENDING," + order.getOrderId() + "\n");
+                    System.out.println("Wrote to queue.txt: PENDING," + order.getOrderId());
                 }
                 for (Order order : processingOrders) {
-                    String queueEntry = "PROCESSING," + order.getOrderId();
-                    writer.write(queueEntry + "\n");
-                    System.out.println("Wrote to queue.txt: " + queueEntry);
+                    writer.write("PROCESSING," + order.getOrderId() + "\n");
+                    System.out.println("Wrote to queue.txt: PROCESSING," + order.getOrderId());
                 }
             }
         } catch (IOException e) {
