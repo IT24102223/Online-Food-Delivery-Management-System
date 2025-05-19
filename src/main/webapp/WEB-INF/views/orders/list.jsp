@@ -87,20 +87,28 @@
 </head>
 <body>
 <div class="sidebar">
-    <a href="#" class="active">Order History</a>
-    <a href="#">Dashboard</a>
-    <a href="#">Track Order</a>
-    <a href="#">Shopping Cart</a>
-    <a href="#">Wishlist</a>
-    <a href="#">Compare</a>
-    <a href="#">Cards & Address</a>
-    <a href="#">Browsing History</a>
-    <a href="#">Settings</a>
-    <a href="#">Logout</a>
+    <a href="${pageContext.request.contextPath}/order/list" class="active">Order History</a>
+    <a href="${pageContext.request.contextPath}/order/menu">Menu</a>
+    <a href="${pageContext.request.contextPath}/order/create">Cart</a>
+    <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </div>
 <div class="content">
     <div class="table-container">
         <h2>Your Orders</h2>
+        <div class="mb-3 d-flex justify-content-between">
+            <form action="${pageContext.request.contextPath}/order/list" method="get" class="d-flex align-items-center">
+                <input type="text" name="search" class="form-control me-2" placeholder="Search by Order ID or Status" value="${param.search}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            <form action="${pageContext.request.contextPath}/order/list" method="get" class="d-flex align-items-center">
+                <select name="sort" class="form-select me-2" style="width: 200px;">
+                    <option value="date_desc" ${param.sort == 'date_desc' ? 'selected' : ''}>Newest First</option>
+                    <option value="date_asc" ${param.sort == 'date_asc' ? 'selected' : ''}>Oldest First</option>
+                    <option value="status" ${param.sort == 'status' ? 'selected' : ''}>Status</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Sort</button>
+            </form>
+        </div>
         <a href="${pageContext.request.contextPath}/order/create" class="btn btn-primary mb-3">Place New Order</a>
         <c:if test="${not empty orders}">
             <table class="table table-striped">
@@ -114,10 +122,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="order" items="${orders}">
+                <c:forEach var="order" items="${orders}" begin="${param.page != null ? (param.page - 1) * 10 : 0}" end="${param.page != null ? param.page * 10 - 1 : 9}">
                     <tr>
                         <td>#${order.orderId}</td>
-                        <td>${order.total}</td>
+                        <td>$${String.format("%.2f", order.total)}</td>
                         <td><span class="status-${fn:toLowerCase(order.status)}"><c:out value="${order.status}" default="Unknown"/></span></td>
                         <td>${order.orderDate}</td>
                         <td>
@@ -127,6 +135,14 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <div class="d-flex justify-content-between mt-3">
+                <c:if test="${param.page != null && param.page > 1}">
+                    <a href="${pageContext.request.contextPath}/order/list?page=${param.page - 1}&sort=${param.sort}&search=${param.search}" class="btn btn-secondary">Previous</a>
+                </c:if>
+                <c:if test="${orders.size() > (param.page != null ? param.page * 10 : 10)}">
+                    <a href="${pageContext.request.contextPath}/order/list?page=${param.page != null ? param.page + 1 : 2}&sort=${param.sort}&search=${param.search}" class="btn btn-secondary">Next</a>
+                </c:if>
+            </div>
         </c:if>
         <c:if test="${empty orders}">
             <p class="no-orders">You have no orders yet.</p>
