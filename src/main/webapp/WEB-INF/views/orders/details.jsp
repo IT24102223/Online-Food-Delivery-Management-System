@@ -83,8 +83,8 @@
     <div class="order-details">
         <p><strong>Order ID:</strong> #${order.orderId}</p>
         <p><strong>Customer:</strong> ${order.customer.username}</p>
-        <p><strong>Total:</strong> ${order.total}</p>
-        <p><strong>Status:</strong> <span class="status-${fn:toLowerCase(order.status)}">${order.status}</span></p>
+        <p><strong>Total:</strong> $${String.format("%.2f", order.total)}</p>
+        <p><strong>Status:</strong> <span id="orderStatus" class="status-${fn:toLowerCase(order.status)}">${order.status}</span></p>
         <p><strong>Order Date:</strong> ${order.orderDate}</p>
         <p><strong>Delivery Date:</strong> ${order.deliveryDate != null ? order.deliveryDate : 'N/A'}</p>
         <h4>Order Items</h4>
@@ -102,8 +102,8 @@
                 <tr>
                     <td>${item.foodItem.name}</td>
                     <td>${item.quantity}</td>
-                    <td>${item.foodItem.price}</td>
-                    <td>${item.quantity * item.foodItem.price}</td>
+                    <td>$${String.format("%.2f", item.foodItem.price)}</td>
+                    <td>$${String.format("%.2f", item.quantity * item.foodItem.price)}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -125,5 +125,27 @@
     </div>
     <a href="${pageContext.request.contextPath}/order/list" class="btn-back">Back to Orders</a>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const orderId = '${order.orderId}';
+        const statusSpan = document.getElementById('orderStatus');
+        const pollStatus = () => {
+            fetch('${pageContext.request.contextPath}/order/status?id=' + encodeURIComponent(orderId))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status) {
+                        statusSpan.textContent = data.status;
+                        statusSpan.className = 'status-' + data.status.toLowerCase();
+                        if (data.status === 'DELIVERED' || data.status === 'CANCELLED') {
+                            document.querySelectorAll('form').forEach(form => form.remove());
+                        }
+                    }
+                })
+                .catch(error => console.error('Error polling status:', error));
+        };
+        setInterval(pollStatus, 10000);
+        pollStatus();
+    });
+</script>
 </body>
 </html>
