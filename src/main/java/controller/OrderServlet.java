@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("/order/*")
 public class OrderServlet extends HttpServlet {
@@ -81,6 +82,14 @@ public class OrderServlet extends HttpServlet {
                 case "/list":
                     List<Order> orders = customer.getOrderHistory();
                     if (orders == null) orders = new ArrayList<>();
+                    String search = sanitizeInput(request.getParameter("search"));
+                    if (search != null && !search.isEmpty()) {
+                        final String searchLower = search.toLowerCase();
+                        orders = orders.stream()
+                                .filter(order -> order.getOrderId().toLowerCase().contains(searchLower) ||
+                                        order.getStatus().toString().toLowerCase().contains(searchLower))
+                                .collect(Collectors.toList());
+                    }
                     String sort = sanitizeInput(request.getParameter("sort"));
                     if (sort != null) {
                         switch (sort) {
@@ -141,7 +150,7 @@ public class OrderServlet extends HttpServlet {
                     try {
                         quantity = Integer.parseInt(quantityStr);
                         if (quantity <= 0) throw new IllegalArgumentException("Quantity must be positive");
-                    } catch (IllegalArgumentException e) {
+                    } catch (NumberFormatException | IllegalArgumentException e) {
                         request.setAttribute("error", "Please enter a valid quantity (positive number).");
                         request.setAttribute("foodItems", foodItems);
                         request.getRequestDispatcher("/WEB-INF/views/orders/menu.jsp").forward(request, response);
