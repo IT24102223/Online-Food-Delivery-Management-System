@@ -1,0 +1,2 @@
+17ce9205-39e7-4b58-b93c-f88ef84abf97,Customer,Harsha Jayaweera,harsha1234@gmail.com,12345,0785565656,vidyala r
+admin-uuid-1234,Admin,Admin User,admin@quickbites.com,admin123,1234567890,123 Admin St
