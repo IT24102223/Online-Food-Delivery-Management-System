@@ -1,0 +1,175 @@
+.order-details {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    font-family: 'DM Sans', sans-serif;
+    animation: fadeIn 1s ease-in 0.4s both;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 18px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 10px;
+    font-family: 'DM Sans', sans-serif;
+    color: #333;
+}
+
+.delivery-address {
+    margin-bottom: 20px;
+}
+
+.delivery-address label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.delivery-address input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+}
+
+.payment-section {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.payment-section h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.payment-options {
+    margin-bottom: 15px;
+}
+
+.custom-radio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.custom-radio input {
+    display: none;
+}
+
+.custom-radio span {
+    margin-left: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.custom-radio span::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    margin-right: 8px;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.custom-radio input:checked + span::before {
+    background-color: transparent;
+    border-color: #ff6f61;
+}
+
+.custom-radio input:checked + span::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #ff6f61;
+    border-radius: 50%;
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.payment-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-info p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #666;
+}
+
+.card-logos {
+    display: flex;
+    gap: 10px;
+}
+
+.card-logo {
+    width: 40px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.place-order-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #ff6f61, #f4b400);
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.place-order-btn:hover {
+    background: linear-gradient(90deg, #e65b50, #d9a300);
+    transform: scale(1.05);
+}
+
+.error-message {
+    color: #ff6f61;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    margin-top: 10px;
+}
