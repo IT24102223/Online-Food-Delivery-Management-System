@@ -1,0 +1,30 @@
+F001,Carnivore Sandwich,Delicious beef burger,330.00,CAT005,true,50
+F002,Chicken Rancher Sandwich,Cheese pizza with tomato sauce,350.00,CAT005,true,30
+F003,Chicken Teriyaki Crunch Sandwich,Cheese pizza with tomato sauce,400.00,CAT005,true,20
+F004,Chimichurri Steak Cheese Sandwich,Delicious beef burger,350.00,CAT005,true,10
+F005,Cuban Crunch Sandwich,Cheese pizza with tomato sauce,300.00,CAT005,true,15
+F006,Nashville Style Hot Chicken Sandwich,Cheese pizza with tomato sauce,450.00,CAT005,true,25
+F007,Tandoori Twist Sandwich,Delicious beef burger,320.00,CAT005,true,50
+F008,Turkey Rancher Sandwich,Cheese pizza with tomato sauce,430.00,CAT005,true,30
+F009,Snackwich Honey Mustard Ham,Cheese pizza with tomato sauce,250.00,CAT002,true,20
+F010,Snackwich Three Cheese,Cheese pizza with tomato sauce,200.00,CAT002,true,30
+F011,Snackwich Turkey Ranch,Cheese pizza with tomato sauce,240.00,CAT002,true,20
+F012,Ham Cheese Dipper,Cheese pizza with tomato sauce,150.00,CAT002,true,10
+F013,Pepperoni Cheese Dipper,Cheese pizza with tomato sauce,260.00,CAT002,true,10
+F014,Two Cheese Dipper,Cheese pizza with tomato sauce,170.00,CAT002,true,10
+F015,Potato Rings,Cheese pizza with tomato sauce,200.00,CAT002,true,10
+F016,Doritos Nacho Cheese,Cheese pizza with tomato sauce,275.00,CAT002,true,20
+F017,Lays Classic,Cheese pizza with tomato sauce,290.00,CAT002,true,20
+F018,Lays Oven Baked,Cheese pizza with tomato sauce,250.00,CAT002,true,20
+F019,Miss Vickies,Cheese pizza with tomato sauce,200.00,CAT002,true,20
+F020,Sun Chip Cheddar,Cheese pizza with tomato sauce,150.00,CAT002,true,20
+F021,Chocolate Candy Cookie,Cheese pizza with tomato sauce,100.00,CAT002,true,20
+F022,Chocolate Chip M&M Cookie,Cheese pizza with tomato sauce,130.00,CAT002,true,20
+F023,Chocolate Chunk Cookie,Cheese pizza with tomato sauce,150.00,CAT002,true,20
+F024,Oatmeal Raisin Cookie,Cheese pizza with tomato sauce,140.00,CAT002,true,20
+F025,Red Velvet Cookie,Cheese pizza with tomato sauce,160.00,CAT002,true,20
+F026,7Up,Cheese pizza with tomato sauce,150.00,CAT003,true,20
+F027,Diet Pepsi,Cheese pizza with tomato sauce,110.00,CAT003,true,20
+F028,Dr Pepper,Cheese pizza with tomato sauce,150.00,CAT003,true,20
+F029,Pepsi,Cheese pizza with tomato sauce,100.00,CAT003,true,20
+F030,Pepsi Zero Sugar,Cheese pizza with tomato sauce,150.00,CAT003,true,20
