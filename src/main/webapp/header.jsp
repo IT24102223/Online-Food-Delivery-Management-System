@@ -1,14 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: acer
-  Date: 5/20/2025
-  Time: 6:29 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +53,7 @@
             <!-- Navigation Menu -->
             <div class="nav-menu" id="nav-menu">
                 <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link">Home</a>
-                <a href="${pageContext.request.contextPath}/#foods" class="nav-link">Foods</a>
+                <a href="${pageContext.request.contextPath}/food-items" class="nav-link">Foods</a>
                 <a href="${pageContext.request.contextPath}/myorders" class="nav-link">My Orders</a>
                 <a href="${pageContext.request.contextPath}/contact.jsp" class="nav-link">Contact Us</a>
                 <a href="${pageContext.request.contextPath}/about.jsp" class="nav-link">About Us</a>

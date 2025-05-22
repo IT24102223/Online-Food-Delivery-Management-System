@@ -1,11 +1,11 @@
 /* Footer-specific styles to avoid conflicts with styles.css and header.css */
 .footer-container {
-    /*width: 1600px;*/
     max-width: 100%;
     height: 621px;
     display: flex;
     position: relative;
     align-items: flex-start;
+    animation: fadeIn 1s ease-in 0.8s both; /* Added to match index */
 }
 
 .footer-bg {
@@ -38,7 +38,7 @@
 }
 
 .footer-copyright {
-    color: #ADB29E;
+    color: #ddd; /* Changed to match index .about-section p */
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 400;
@@ -102,7 +102,7 @@
 }
 
 .footer-logo-text {
-    color: #FFFFFF;
+    color: #FFFFFF; /* Retained to match index .about-section h2 */
     font-size: 42.66666793823242px;
     font-family: 'Patua One', sans-serif;
     font-weight: 400;
@@ -113,7 +113,7 @@
 }
 
 .footer-description {
-    color: #ADB29E;
+    color: #ddd; /* Changed to match index .about-section p */
     width: 293px;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
@@ -129,107 +129,37 @@
 }
 
 .footer-social-icon {
-    width: 35px;
-    height: 35px;
+    width: 40px; /* Adjusted to accommodate 32px icons */
+    height: 40px;
     display: flex;
     position: relative;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease; /* Added to match index */
 }
 
-.footer-social-bg {
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    top: 0;
-    left: 0;
+.footer-social-icon:hover {
+    transform: scale(1.05); /* Added to match index button hovers */
 }
 
-.footer-social-icon-twitter {
-    width: 13.967408180236816px;
-    height: 11.290321350097656px;
-    display: flex;
-    position: absolute;
-    top: 12.423828125px;
-    left: 11.28125px;
-    align-items: flex-start;
+.footer-social-icon i {
+    font-size: 32px; /* Aligned with index .feature i */
+    color: #ff6f61; /* Aligned with index icon color */
 }
 
-.footer-social-icon-twitter-img {
-    width: 14px;
-    height: 11px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.footer-social-icon-facebook {
-    width: 7.903224945068359px;
-    height: 15.218616485595703px;
-    display: flex;
-    position: absolute;
-    top: 10.166015625px;
-    left: 13.546875px;
-    align-items: flex-start;
-}
-
-.footer-social-icon-facebook-img {
-    width: 8px;
-    height: 15px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.footer-social-icon-instagram {
-    width: 16.935482025146484px;
-    height: 16.936290740966797px;
-    display: flex;
-    position: absolute;
-    top: 9.0380859375px;
-    left: 9.03125px;
-    align-items: flex-start;
-}
-
-.footer-social-icon-instagram-img-1 {
-    width: 17px;
-    height: 17px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.footer-social-icon-instagram-img-2 {
-    width: 9px;
-    height: 9px;
-    position: absolute;
-    top: 4.1240234375px;
-    left: 4.1171875px;
-}
-
-.footer-social-icon-instagram-img-3 {
-    width: 2px;
-    height: 2px;
-    position: absolute;
-    top: 2.93359375px;
-    left: 11.984375px;
-}
-
-.footer-social-icon-github {
-    width: 16.199739456176758px;
-    height: 15.806449890136719px;
-    display: flex;
-    position: absolute;
-    top: 9.0380859375px;
-    left: 10.1796875px;
-    align-items: flex-start;
-}
-
+/* Removed SVG-specific classes to use Font Awesome */
+.footer-social-bg,
+.footer-social-icon-twitter,
+.footer-social-icon-twitter-img,
+.footer-social-icon-facebook,
+.footer-social-icon-facebook-img,
+.footer-social-icon-instagram,
+.footer-social-icon-instagram-img-1,
+.footer-social-icon-instagram-img-2,
+.footer-social-icon-instagram-img-3,
+.footer-social-icon-github,
 .footer-social-icon-github-img {
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: none; /* Hide SVG icons */
 }
 
 /* Column 2 */
@@ -247,10 +177,10 @@
 }
 
 .footer-col-2-heading {
-    color: #FFFFFF;
-    font-size: 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
+    color: #FFFFFF; /* Retained to match index .about-section h2 */
+    font-size: 32px; /* Aligned with index .menu-section h2 */
+    font-family: 'Patua One', sans-serif; /* Changed to match index */
+    font-weight: 400;
     line-height: 24px;
     text-align: left;
 }
@@ -263,13 +193,18 @@
 }
 
 .footer-col-2-link {
-    color: #DBDFD0;
+    color: #ddd; /* Changed to match index .about-section p */
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 400;
     line-height: 24px;
     text-decoration: none;
     text-align: left;
+    transition: color 0.3s ease; /* Added for hover effect */
+}
+
+.footer-col-2-link:hover {
+    color: #ff6f61; /* Aligned with index accent */
 }
 
 /* Column 3 */
@@ -281,10 +216,10 @@
 }
 
 .footer-col-3-heading {
-    color: #FFFFFF;
-    font-size: 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
+    color: #FFFFFF; /* Retained to match index .about-section h2 */
+    font-size: 32px; /* Aligned with index .menu-section h2 */
+    font-family: 'Patua One', sans-serif; /* Changed to match index */
+    font-weight: 400;
     line-height: 24px;
     text-align: left;
 }
@@ -361,4 +296,10 @@
     top: -15px;
     left: -15px;
     border-radius: 12px;
+}
+
+/* Animations (Copied from index.css) */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

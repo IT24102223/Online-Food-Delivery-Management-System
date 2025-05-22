@@ -1,20 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: acer
-  Date: 5/20/2025
-  Time: 6:27 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Cart QuickBite</title>
+    <link rel="icon" type="image/x-icon" href="external/letter-q.png">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,19 +14,23 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
 
-<div class="cart-container">
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<div class="container">
     <h1>Your Cart</h1>
-    <div class="cart-content">
+    <div class="cart-content fadeIn">
         <!-- Cart Items -->
         <div class="cart-items">
             <c:choose>
                 <c:when test="${empty cartItems}">
-                    <p>Your cart is empty.</p>
+                    <div class="empty-cart"><p>Your cart is empty.</p></div>
                 </c:when>
                 <c:otherwise>
                     <c:forEach var="cartItem" items="${cartItems}" varStatus="loop">
@@ -102,5 +98,31 @@
 
 <%@ include file="footer.jsp" %>
 
+<script>
+    // Toast notification for cart actions
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const toast = document.getElementById('toast');
+        if (urlParams.get('updated') === 'true') {
+            toast.textContent = "Cart updated successfully!";
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        } else if (urlParams.get('deleted') === 'true') {
+            toast.textContent = "Item removed from cart!";
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        } else if (urlParams.get('error')) {
+            toast.textContent = urlParams.get('error');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    };
+</script>
 </body>
 </html>
