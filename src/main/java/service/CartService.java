@@ -3,8 +3,7 @@ package service;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.ServletContext;
 import model.Cart;
-import model.FoodItem;
-import model.User;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -184,5 +183,4 @@ public class CartService {
         }
         return cart;
     }
-
 }

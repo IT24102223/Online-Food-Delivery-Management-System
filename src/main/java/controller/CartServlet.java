@@ -7,15 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Cart;
-import model.FoodItem;
-import model.User;
 import service.CartService;
 import java.util.List;
 import java.io.IOException;
 
-
 @WebServlet("/cart")
-
 public class CartServlet extends HttpServlet {
     private CartService cartService;
 
@@ -87,5 +83,4 @@ public class CartServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/cart");
         }
     }
-
 }
