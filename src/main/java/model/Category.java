@@ -11,16 +11,17 @@ public class Category {
         this.description = description;
     }
 
-    // Getters and Setters
+    // Getters & Setters
     public String getCategoryId() { return categoryId; }
-    public void setCategoryId(String categoryId) { this.categoryId = categoryId; }
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
     public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
 
-    @Override
-    public String toString() {
-        return categoryId + "," + name + "," + description;
+    public String toCSV() {
+        return String.format("%s,%s,%s", categoryId, name, description);
+    }
+
+    public static Category fromCSV(String csvLine) {
+        String[] data = csvLine.split(",");
+        return new Category(data[0], data[1], data[2]);
     }
 }
