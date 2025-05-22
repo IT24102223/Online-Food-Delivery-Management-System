@@ -1,18 +1,19 @@
-/* Header-specific styles to avoid conflicts with styles.css */
 .header-container {
     max-width: 100%;
     height: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: #ffffff; /* Retained white background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
+    z-index: 1000;
+    animation: fadeIn 1s ease-in;
 }
 
 .header-inner {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1296px;
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
@@ -28,17 +29,17 @@
     display: flex;
     align-items: center;
     margin-top: 10px;
-    margin-left: -100px; /* Shift logo 200px left */
+    margin-left: -100px;
 }
 
 .logo-container img {
-    width: 100px; /* Updated to 100px */
-    height: 100px; /* Updated to 100px */
+    width: 100px;
+    height: 100px;
     margin-right: 12px;
 }
 
 .logo-container a {
-    color: #172126;
+    color: #000;
     font-size: 50px;
     font-family: 'Patua One', sans-serif;
     font-weight: 400;
@@ -47,46 +48,70 @@
 
 .login-signup {
     display: flex;
-    gap: 12px;
-    margin-right: -150px; /* Shift buttons 200px right */
+    gap: 16px;
+    margin-right: -110px; /* Adjusted to align signup-btn right edge with cart button */
     margin-top: -60px;
 }
 
 .login-btn,
-.signup-btn {
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-size: 15px;
+.profile-btn {
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 16px;
     font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
+    font-weight: 500;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: 2px solid #ff6f61;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.login-btn {
-    border: 2px solid #ad343e;
-    background: none;
-    color: #ad343e;
-}
-
-.login-btn:hover {
-    background-color: #ad343e;
-    color: #ffffff;
+.login-btn:hover,
+.profile-btn:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid #ff6f61;
     transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: pulse 0.3s ease-in-out;
 }
 
-.signup-btn {
+.signup-btn,
+.logout-btn {
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    background: linear-gradient(90deg, #ff6f61, #f4b400);
+    color: #fff;
     border: none;
-    background: #ad343e;
-    color: #ffffff;
 }
 
-.signup-btn:hover {
-    background-color: #9c2d36;
+.signup-btn:hover,
+.logout-btn:hover {
+    background: linear-gradient(90deg, #e65b50, #d9a300);
     transform: scale(1.05);
+    animation: pulse 0.3s ease-in-out;
+}
+
+.login-btn i,
+.signup-btn i,
+.profile-btn i,
+.logout-btn i {
+    font-size: 16px;
+    color: inherit;
 }
 
 .nav-container {
@@ -104,19 +129,19 @@
 }
 
 .nav-link {
-    color: #172126;
-    font-size: 15px;
+    color: #333;
+    font-size: 16px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
     text-decoration: none;
-    padding: 6px 14px;
-    border-radius: 18px;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
 }
 
 .nav-link:hover {
-    background-color: #ad343e;
-    color: #ffffff;
+    background: linear-gradient(90deg, #ff6f61, #f4b400);
+    color: #fff;
     transform: scale(1.05);
 }
 
@@ -131,12 +156,70 @@
 .hamburger div {
     width: 28px;
     height: 3px;
-    background-color: #172126;
+    background-color: #333;
     margin: 5px 0;
 }
 
+/* Cart Button */
+.cart-button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.cart-button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(90deg, #ff6f61, #f4b400);
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cart-button a:hover {
+    background: linear-gradient(90deg, #e65b50, #d9a300);
+    transform: scale(1.1);
+    animation: pulse 0.3s ease-in-out;
+}
+
+.cart-button .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #fff;
+    color: #ff6f61;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Responsive Design */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .nav-menu {
         display: none;
         flex-direction: column;
@@ -167,7 +250,7 @@
     .login-signup {
         flex-direction: column;
         gap: 8px;
-        margin-right: 50px; /* Adjusted for hamburger icon space */
+        margin-right: 50px; /* Retained for hamburger space */
         margin-top: 15px;
     }
 
@@ -183,15 +266,40 @@
     }
 
     .logo-container {
-        margin-left: 15px; /* Reset for mobile to align with left edge */
+        margin-left: 15px;
     }
 
     .logo-container img {
-        width: 80px; /* Slightly smaller for mobile */
+        width: 80px;
         height: 80px;
     }
 
     .logo-container a {
-        font-size: 40px;
+        font-size: 36px;
+    }
+
+    .cart-button {
+        bottom: 10px;
+        right: 20px;
+    }
+
+    .cart-button a {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .cart-button .cart-count {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+
+    .login-btn,
+    .signup-btn,
+    .profile-btn,
+    .logout-btn {
+        width: 100%;
+        text-align: center;
     }
 }
