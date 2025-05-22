@@ -1,1 +1,0 @@
-user1,john,password,john@example.com,1234567890,123 Main St,CUSTOMER,true

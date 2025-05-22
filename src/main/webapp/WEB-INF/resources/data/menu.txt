@@ -1,3 +1,0 @@
-item1,Burger,10.99,true
-item2,Pizza,12.99,true
-item3,Fries,3.99,true
