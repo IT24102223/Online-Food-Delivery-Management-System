@@ -1,232 +1,157 @@
 package controller;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.*;
+import jakarta.servlet.http.HttpSession;
+import model.Cart;
+import model.FoodItem;
+import model.Order;
+import model.User;
+import service.FoodItemService;
 import service.OrderService;
-
-import java.io.BufferedReader;
+import service.OrderQueueService;
+import service.CartService;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@WebServlet("/order/*")
+@WebServlet({"/order", "/myorders"})
 public class OrderServlet extends HttpServlet {
-    private List<FoodItem> foodItems;
+    private static final Logger LOGGER = Logger.getLogger(OrderServlet.class.getName());
     private OrderService orderService;
+    private FoodItemService foodItemService;
+    private CartService cartService;
+    private OrderQueueService orderQueueService;
 
     @Override
     public void init() throws ServletException {
-        ServletContext context = getServletContext();
-        foodItems = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(context.getResourceAsStream("/WEB-INF/resources/data/menu.txt")))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                try {
-                    foodItems.add(FoodItem.fromCSV(line));
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Error parsing food item CSV: " + e.getMessage());
-                }
-            }
-            System.out.println("Loaded " + foodItems.size() + " food items in OrderServlet");
-        } catch (IOException e) {
-            throw new ServletException("Failed to load food items", e);
-        }
-        orderService = new OrderService();
+        this.orderService = new OrderService(getServletContext());
+        this.foodItemService = new FoodItemService(getServletContext());
+        this.cartService = new CartService(getServletContext());
+        this.orderQueueService = new OrderQueueService(getServletContext());
     }
 
-    private Customer checkSessionAndGetCustomer(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        Customer customer = (Customer) request.getSession().getAttribute("user");
-        if (customer == null) {
-            System.err.println("No user session found, redirecting to login");
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
-            return null;
+            return;
         }
-        return customer;
-    }
 
-    private String sanitizeInput(String input) {
-        if (input == null) return null;
-        return input.trim().replaceAll("[<>\"&']", "");
-    }
+        String path = request.getServletPath();
+        if ("/order".equals(path)) {
+            Cart cart = cartService.getOrCreateCart(session, user.getUserID());
+            List<Cart.CartItem> cartItems = cartService.getCartItems(session);
+            double subtotal = cartService.getTotalAmount(session);
+            double discount = subtotal * 0.20;
+            double deliveryFee = 150.0;
+            double total = subtotal - discount + deliveryFee;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Customer customer = checkSessionAndGetCustomer(request, response);
-        if (customer == null) return;
-
-        String pathInfo = request.getPathInfo() != null ? request.getPathInfo() : "/";
-
-        try {
-            switch (pathInfo) {
-                case "/menu":
-                    request.setAttribute("foodItems", foodItems);
-                    request.getRequestDispatcher("/WEB-INF/views/orders/menu.jsp").forward(request, response);
-                    break;
-                case "/create":
-                    request.getRequestDispatcher("/WEB-INF/views/orders/create.jsp").forward(request, response);
-                    break;
-                case "/confirmation":
-                    request.getRequestDispatcher("/WEB-INF/views/orders/confirmation.jsp").forward(request, response);
-                    break;
-                case "/list":
-                    List<Order> orders = customer.getOrderHistory();
-                    if (orders == null) orders = new ArrayList<>();
-                    String search = sanitizeInput(request.getParameter("search"));
-                    if (search != null && !search.isEmpty()) {
-                        final String searchLower = search.toLowerCase();
-                        orders = orders.stream()
-                                .filter(order -> order.getOrderId().toLowerCase().contains(searchLower) ||
-                                        order.getStatus().toString().toLowerCase().contains(searchLower))
-                                .collect(Collectors.toList());
-                    }
-                    String sort = sanitizeInput(request.getParameter("sort"));
-                    if (sort != null) {
-                        switch (sort) {
-                            case "date_asc":
-                                orders.sort(Comparator.comparing(Order::getOrderDate));
-                                break;
-                            case "date_desc":
-                                orders.sort(Comparator.comparing(Order::getOrderDate).reversed());
-                                break;
-                            case "status":
-                                orders.sort(Comparator.comparing(order -> order.getStatus().toString()));
-                                break;
-                        }
-                    }
-                    request.setAttribute("orders", orders);
-                    request.getRequestDispatcher("/WEB-INF/views/orders/list.jsp").forward(request, response);
-                    break;
-                case "/details":
-                    String orderId = sanitizeInput(request.getParameter("id"));
-                    if (orderId == null || orderId.isEmpty()) {
-                        request.setAttribute("error", "Please provide a valid order ID.");
-                        request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
-                        return;
-                    }
-                    Order order = orderService.getOrderById(orderId, customer, getServletContext());
-                    if (order == null || !order.getCustomer().getUserId().equals(customer.getUserId())) {
-                        request.setAttribute("error", "Order not found or you are not authorized to view it.");
-                        request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
-                        return;
-                    }
-                    request.setAttribute("order", order);
-                    request.getRequestDispatcher("/WEB-INF/views/orders/details.jsp").forward(request, response);
-                    break;
-                default:
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Invalid order path");
+            request.setAttribute("user", user);
+            request.setAttribute("cartItems", cartItems);
+            request.setAttribute("subtotal", String.format("%.2f", subtotal));
+            request.setAttribute("discount", String.format("%.2f", discount));
+            request.setAttribute("deliveryFee", "150.00 LKR");
+            request.setAttribute("total", String.format("%.2f", total));
+            request.getRequestDispatcher("/order.jsp").forward(request, response);
+        } else if ("/myorders".equals(path)) {
+            try {
+                List<Order> allOrders = orderService.getAllOrders();
+                List<Order> userOrders = allOrders.stream()
+                        .filter(order -> order.getUserId().equals(user.getUserID()))
+                        .toList();
+                request.setAttribute("orders", userOrders);
+                request.getRequestDispatcher("/myorders.jsp").forward(request, response);
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Error fetching orders: " + e.getMessage(), e);
+                response.sendRedirect(request.getContextPath() + "/error.jsp?message=Failed to load orders");
             }
-        } catch (ServletException e) {
-            System.err.println("JSP not found: " + e.getMessage());
-            request.setAttribute("error", "Page not available. Please try again later.");
-            request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Customer customer = checkSessionAndGetCustomer(request, response);
-        if (customer == null) return;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Cart cart = (Cart) session.getAttribute("cart");
 
-        String pathInfo = request.getPathInfo() != null ? request.getPathInfo() : "/";
+        if (user == null || cart == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
 
-        try {
-            switch (pathInfo) {
-                case "/add-to-cart":
-                    String itemId = sanitizeInput(request.getParameter("itemId"));
-                    String quantityStr = sanitizeInput(request.getParameter("quantity"));
-                    int quantity;
-                    try {
-                        quantity = Integer.parseInt(quantityStr);
-                        if (quantity <= 0) throw new IllegalArgumentException("Quantity must be positive");
-                    } catch (IllegalArgumentException e) {
-                        request.setAttribute("error", "Please enter a valid quantity (positive number).");
-                        request.setAttribute("foodItems", foodItems);
-                        request.getRequestDispatcher("/WEB-INF/views/orders/menu.jsp").forward(request, response);
-                        return;
+        if ("place".equals(action)) {
+            try {
+                String deliveryAddress = request.getParameter("deliveryAddress");
+                if (deliveryAddress == null || deliveryAddress.trim().isEmpty()) {
+                    deliveryAddress = user.getAddress();
+                }
+                List<Cart.CartItem> cartItems = cart.getItems();
+                List<FoodItem> orderItems = new ArrayList<>();
+                double totalAmount = 0.0;
+
+                for (Cart.CartItem cartItem : cartItems) {
+                    FoodItem foodItem = foodItemService.getFoodItemById(cartItem.getFoodItem().getFoodId());
+                    if (foodItem != null && foodItem.isAvailable()) {
+                        orderItems.add(foodItem);
+                        totalAmount += foodItem.getPrice() * cartItem.getQuantity();
+                        foodItemService.incrementOrderCount(foodItem.getFoodId());
+                    } else {
+                        LOGGER.warning("Food item " + cartItem.getFoodItem().getFoodId() + " is unavailable or not found");
                     }
-                    FoodItem foodItem = foodItems.stream()
-                            .filter(f -> f.getFoodId().equals(itemId))
-                            .findFirst()
-                            .orElse(null);
-                    if (foodItem == null || !foodItem.isAvailable()) {
-                        request.setAttribute("error", "Selected item is not available.");
-                        request.setAttribute("foodItems", foodItems);
-                        request.getRequestDispatcher("/WEB-INF/views/orders/menu.jsp").forward(request, response);
-                        return;
-                    }
-                    customer.getCart().addItem(foodItem, quantity);
-                    customer.getCart().save(getServletContext());
-                    System.out.println("Added item " + itemId + " (quantity: " + quantity + ") to cart for user " + customer.getUserId());
-                    response.sendRedirect(request.getContextPath() + "/order/menu");
-                    break;
-                case "/create":
-                    try {
-                        customer.placeOrder();
-                        String lastOrderId = customer.getOrderHistory().get(customer.getOrderHistory().size() - 1).getOrderId();
-                        request.getSession().setAttribute("lastOrderId", lastOrderId);
-                        System.out.println("Order created for user " + customer.getUserId() + ", order ID: " + lastOrderId);
-                        response.sendRedirect(request.getContextPath() + "/order/confirmation");
-                    } catch (IllegalStateException e) {
-                        request.setAttribute("error", "Cannot place order: " + e.getMessage());
-                        request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
-                    }
-                    break;
-                case "/cancel":
-                    String cancelOrderId = sanitizeInput(request.getParameter("id"));
-                    if (cancelOrderId == null || cancelOrderId.isEmpty()) {
-                        request.setAttribute("error", "Please provide a valid order ID.");
-                        request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
-                        return;
-                    }
-                    try {
-                        orderService.cancelOrder(cancelOrderId, customer.getUserId(), getServletContext());
-                        System.out.println("Order " + cancelOrderId + " cancelled by user " + customer.getUserId());
-                        response.sendRedirect(request.getContextPath() + "/order/list");
-                    } catch (IllegalStateException | IllegalArgumentException e) {
-                        request.setAttribute("error", e.getMessage());
-                        request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
-                    }
-                    break;
-                case "/update":
-                    String updateOrderId = sanitizeInput(request.getParameter("id"));
-                    String newStatus = sanitizeInput(request.getParameter("status"));
-                    if (updateOrderId == null || updateOrderId.isEmpty() || newStatus == null || newStatus.isEmpty()) {
-                        request.setAttribute("error", "Please provide both a valid order ID and status.");
-                        request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
-                        return;
-                    }
-                    try {
-                        Order.Status status = Order.Status.valueOf(newStatus.toUpperCase());
-                        orderService.updateOrderStatus(updateOrderId, customer.getUserId(), status, getServletContext());
-                        System.out.println("Order " + updateOrderId + " status updated to " + status + " by user " + customer.getUserId());
-                        response.sendRedirect(request.getContextPath() + "/order/details?id=" + updateOrderId);
-                    } catch (IllegalArgumentException e) {
-                        request.setAttribute("error", "Invalid order status provided.");
-                        request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
-                    } catch (IllegalStateException | SecurityException e) {
-                        request.setAttribute("error", e.getMessage());
-                        request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
-                    }
-                    break;
-                default:
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Invalid order path");
+                }
+
+                if (orderItems.isEmpty()) {
+                    response.sendRedirect(request.getContextPath() + "/order.jsp?error=No available items to order");
+                    return;
+                }
+
+                String orderId = "ORDER" + UUID.randomUUID().toString().substring(0, 8);
+                Date orderDate = new Date();
+                String status = "Pending";
+
+                Order order = new Order(orderId, user.getUserID(), orderItems, totalAmount, orderDate, deliveryAddress, status);
+                orderService.placeOrder(order);
+                orderQueueService.addToQueue(order); // Add the order to the queue
+
+                cart.clearCart();
+                session.setAttribute("cart", cart);
+
+                response.sendRedirect(request.getContextPath() + "/order.jsp?orderPlaced=true");
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Error placing order: " + e.getMessage(), e);
+                response.sendRedirect(request.getContextPath() + "/order.jsp?error=Failed to place order");
             }
-        } catch (ServletException e) {
-            System.err.println("JSP not found: " + e.getMessage());
-            request.setAttribute("error", "Page not available. Please try again later.");
-            request.getRequestDispatcher("/WEB-INF/views/orders/error.jsp").forward(request, response);
+        } else if ("updateStatus".equals(action)) {
+            String orderId = request.getParameter("orderId");
+            String newStatus = request.getParameter("status");
+            try {
+                orderService.updateOrderStatus(orderId, newStatus);
+                response.sendRedirect(request.getContextPath() + "/myorders?statusUpdated=true");
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Error updating order status: " + e.getMessage(), e);
+                response.sendRedirect(request.getContextPath() + "/myorders?error=Failed to update status");
+            }
+        } else if ("cancel".equals(action)) {
+            String orderId = request.getParameter("orderId");
+            try {
+                orderService.cancelOrder(orderId);
+                response.getWriter().write("success");
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Error cancelling order: " + e.getMessage(), e);
+                response.getWriter().write("error");
+            }
         }
     }
 }
