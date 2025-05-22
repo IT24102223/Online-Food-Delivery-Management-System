@@ -1,0 +1,441 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+html body {
+    background-image: url('https://cdn.pixabay.com/photo/2021/05/18/15/15/pasta-6263653_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    height: 100%;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 1296px;
+    margin: 0 auto;
+    background: transparent; /* Ensure container doesn't block background */
+}
+
+/* Hero Section */
+.hero {
+    background: transparent;
+    padding: 60px 40px;
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeIn 1s ease-in;
+}
+
+.hero-content h1 {
+    font-family: 'Patua One', serif;
+    font-size: 56px;
+    font-weight: 400;
+    color: #000;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    color: #000;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.order-now, .find-food {
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.order-now {
+    background: linear-gradient(90deg, #ff6f61, #f4b400);
+    color: #fff;
+    border: none;
+}
+
+.order-now:hover {
+    background: linear-gradient(90deg, #e65b50, #d9a300);
+    transform: scale(1.05);
+}
+
+.find-food {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: 2px solid #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.find-food:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid #ff6f61;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu Section */
+.menu-section {
+    margin-bottom: 40px;
+    animation: fadeIn 1s ease-in 0.2s both;
+}
+
+.menu-section h2 {
+    font-family: 'Patua One', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #000;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.menu-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.menu-icon {
+    font-size: 40px;
+    color: #ff6f61;
+    margin-bottom: 15px;
+}
+
+.menu-card h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.menu-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.explore-menu {
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #ff6f61, #f4b400);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.explore-menu:hover {
+    background: linear-gradient(90deg, #e65b50, #d9a300);
+    transform: scale(1.05);
+}
+
+/* About Section */
+.about-section {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 40px;
+    animation: fadeIn 1s ease-in 0.4s both;
+}
+
+.about-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h2 {
+    font-family: 'Patua One', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.about-text p {
+    font-size: 16px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.start-ordering {
+    padding: 14px 28px;
+    background: linear-gradient(90deg, #ff6f61, #f4b400);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-ordering:hover {
+    background: linear-gradient(90deg, #e65b50, #d9a300);
+    transform: scale(1.05);
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Features Section */
+.features-section {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeIn 1s ease-in 0.6s both;
+}
+
+.features-section h2 {
+    font-family: 'Patua One', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #000;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
+
+.features-section p {
+    font-size: 16px;
+    color: #000;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+
+.features-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.feature {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    width: 200px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.feature i {
+    font-size: 32px;
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    margin-bottom: 40px;
+    animation: fadeIn 1s ease-in 0.8s both;
+}
+
+.testimonials-section h2 {
+    font-family: 'Patua One', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #000;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.testimonial-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-left: 4px solid #ff6f61;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-card h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+.rating {
+    color: #f4b400;
+    margin-bottom: 10px;
+}
+
+.rating i {
+    font-size: 14px;
+}
+
+.testimonial-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #ff6f61;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+}
+
+.user p {
+    font-size: 14px;
+    color: #333;
+}
+
+.user p:nth-child(2) {
+    font-weight: 500;
+}
+
+.user p:nth-child(3) {
+    color: #666;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.pulse {
+    animation: pulse 0.3s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image img {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .menu-grid, .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature {
+        width: 100%;
+        max-width: 300px;
+    }
+}

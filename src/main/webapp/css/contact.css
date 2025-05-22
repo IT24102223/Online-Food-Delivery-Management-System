@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* Contact-specific styles to match foods.jsp and about.jsp */
+.contact-hero {
+    background: transparent;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+    font-family: 'Patua One', sans-serif;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+    line-height: 24px;
+}
+
+.contact-main {
+    padding: 60px 20px;
+    background: transparent;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.contact-form {
+    flex: 2;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in 0.2s both;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-row {
+    display: flex;
+    gap: 24px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.full-width {
+    flex: 2;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 12px 24px;
+    border: 1px solid #dbdfd0;
+    border-radius: 72px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+    background-color: #fff;
+}
+
+.form-group textarea {
+    border-radius: 16px;
+    resize: vertical;
+}
+
+.submit-btn {
+    padding: 20px 32px;
+    background: linear-gradient(90deg, #ff6f61, #f4b400);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(90deg, #e65b50, #d9a300);
+    transform: scale(1.05);
+}
+
+.submit-btn i {
+    margin-right: 8px;
+}
+
+.contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in 0.4s both;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-card i {
+    font-size: 24px;
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+.info-card h3 {
+    font-size: 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.info-card p {
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+    line-height: 22px;
+}
+
+.contact-instagram {
+    padding: 60px 20px;
+    background: transparent;
+    text-align: center;
+}
+
+.contact-instagram h2 {
+    font-size: 24px;
+    font-family: 'Patua One', sans-serif;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.instagram-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.instagram-grid img:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .contact-container {
+        flex-direction: column;
+    }
+
+    .contact-form {
+        padding: 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .instagram-grid {
+        grid-template-columns: 1fr;
+    }
+}
