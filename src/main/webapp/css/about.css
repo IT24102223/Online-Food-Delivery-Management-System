@@ -1,0 +1,256 @@
+/* About-specific styles to match foods.jsp */
+.about-hero {
+    background: transparent;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.about-content {
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    font-size: 36px;
+    font-family: 'Patua One', sans-serif;
+    color: #000;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+    line-height: 24px;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.about-features {
+    padding: 60px 20px;
+    background: transparent;
+    text-align: center;
+}
+
+.about-features h2 {
+    font-size: 24px;
+    font-family: 'Patua One', sans-serif;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in 0.2s both;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card i {
+    font-size: 24px;
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+    line-height: 22px;
+}
+
+.about-facts {
+    padding: 60px 20px;
+    background: transparent;
+}
+
+.facts-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.facts-text {
+    flex: 1;
+}
+
+.facts-text h2 {
+    font-size: 24px;
+    font-family: 'Patua One', sans-serif;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.facts-text p {
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+    line-height: 24px;
+}
+
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    flex: 1;
+}
+
+.fact-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in 0.4s both;
+}
+
+.fact-card h3 {
+    font-size: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+.fact-card p {
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+}
+
+.about-testimonials {
+    padding: 60px 20px;
+    background: transparent;
+    text-align: center;
+}
+
+.about-testimonials h2 {
+    font-size: 24px;
+    font-family: 'Patua One', sans-serif;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in 0.6s both;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-card .quote {
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+.testimonial-card p {
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+    line-height: 22px;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.user-info div p:first-child {
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: #333;
+}
+
+.user-info div p:last-child {
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+    }
+
+    .features-grid, .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .facts-content {
+        flex-direction: column;
+    }
+
+    .facts-grid {
+        grid-template-columns: 1fr;
+    }
+}

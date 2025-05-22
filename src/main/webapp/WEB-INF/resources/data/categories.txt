@@ -1,0 +1,5 @@
+CAT001,Main Course,Hearty meals for lunch or dinner
+CAT002,Snacks,Quick bites and light treats
+CAT003,Beverages,Refreshing drinks
+CAT004,Desserts,Sweet treats to finish your meal
+CAT005,Sandwiches,Sweet treats to finish your meal
