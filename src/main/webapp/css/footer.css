@@ -1,0 +1,305 @@
+/* Footer-specific styles to avoid conflicts with styles.css and header.css */
+.footer-container {
+    max-width: 100%;
+    height: 621px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    animation: fadeIn 1s ease-in 0.8s both; /* Added to match index */
+}
+
+.footer-bg {
+    max-width: 100%;
+    height: 621px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-content {
+    width: 1296px;
+    height: 473px;
+    display: flex;
+    position: absolute;
+    top: 120px;
+    left: 152px;
+    align-items: flex-start;
+}
+
+/* Bottom Section */
+.footer-bottom {
+    width: 1296px;
+    height: 54px;
+    display: flex;
+    position: absolute;
+    top: 419px;
+    left: 0;
+    align-items: flex-start;
+}
+
+.footer-copyright {
+    color: #ddd; /* Changed to match index .about-section p */
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    position: absolute;
+    top: 30px;
+    left: 436px;
+    text-align: left;
+}
+
+.footer-divider {
+    width: 1296px;
+    height: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Top Section */
+.footer-top {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    gap: 135px;
+    align-items: flex-start;
+}
+
+/* Column 1 */
+.footer-col-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.footer-logo-container {
+    width: 211px;
+    height: 55px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+}
+
+.footer-logo-img {
+    width: 56px;
+    height: 55px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-logo-text-container {
+    width: 182.6666717529297px;
+    height: 38.66666793823242px;
+    display: flex;
+    position: absolute;
+    top: 8px;
+    left: 28.5px;
+    align-items: flex-start;
+}
+
+.footer-logo-text {
+    color: #FFFFFF; /* Retained to match index .about-section h2 */
+    font-size: 42.66666793823242px;
+    font-family: 'Patua One', sans-serif;
+    font-weight: 400;
+    line-height: 29.33333396911621px;
+    position: absolute;
+    top: 4px;
+    left: 41.333335876464844px;
+}
+
+.footer-description {
+    color: #ddd; /* Changed to match index .about-section p */
+    width: 293px;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.footer-social-icon {
+    width: 40px; /* Adjusted to accommodate 32px icons */
+    height: 40px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease; /* Added to match index */
+}
+
+.footer-social-icon:hover {
+    transform: scale(1.05); /* Added to match index button hovers */
+}
+
+.footer-social-icon i {
+    font-size: 32px; /* Aligned with index .feature i */
+    color: #ff6f61; /* Aligned with index icon color */
+}
+
+/* Removed SVG-specific classes to use Font Awesome */
+.footer-social-bg,
+.footer-social-icon-twitter,
+.footer-social-icon-twitter-img,
+.footer-social-icon-facebook,
+.footer-social-icon-facebook-img,
+.footer-social-icon-instagram,
+.footer-social-icon-instagram-img-1,
+.footer-social-icon-instagram-img-2,
+.footer-social-icon-instagram-img-3,
+.footer-social-icon-github,
+.footer-social-icon-github-img {
+    display: none; /* Hide SVG icons */
+}
+
+/* Column 2 */
+.footer-col-2 {
+    display: flex;
+    gap: 120px;
+    align-items: flex-start;
+}
+
+.footer-col-2-section {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.footer-col-2-heading {
+    color: #FFFFFF; /* Retained to match index .about-section h2 */
+    font-size: 32px; /* Aligned with index .menu-section h2 */
+    font-family: 'Patua One', sans-serif; /* Changed to match index */
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.footer-col-2-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.footer-col-2-link {
+    color: #ddd; /* Changed to match index .about-section p */
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    text-decoration: none;
+    text-align: left;
+    transition: color 0.3s ease; /* Added for hover effect */
+}
+
+.footer-col-2-link:hover {
+    color: #ff6f61; /* Aligned with index accent */
+}
+
+/* Column 3 */
+.footer-col-3 {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.footer-col-3-heading {
+    color: #FFFFFF; /* Retained to match index .about-section h2 */
+    font-size: 32px; /* Aligned with index .menu-section h2 */
+    font-family: 'Patua One', sans-serif; /* Changed to match index */
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.footer-gallery {
+    width: 403px;
+    height: 355px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+}
+
+.footer-gallery-img-container {
+    width: 194px;
+    height: 170px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    background-color: #D9D9D9;
+}
+
+.footer-gallery-img-1 {
+    top: 0;
+    left: 0;
+}
+
+.footer-gallery-img-2 {
+    top: 0;
+    left: 209px;
+}
+
+.footer-gallery-img-3 {
+    top: 185px;
+    left: 0;
+}
+
+.footer-gallery-img-4 {
+    top: 185px;
+    left: 209px;
+}
+
+.footer-gallery-img-1 img {
+    width: 222px;
+    height: 176px;
+    position: absolute;
+    top: 0;
+    left: -17px;
+    border-radius: 12px;
+}
+
+.footer-gallery-img-2 img {
+    width: 194px;
+    height: 170px;
+    position: absolute;
+    top: 0;
+    left: -0.22265625px;
+    border-radius: 12px;
+}
+
+.footer-gallery-img-3 img {
+    width: 244px;
+    height: 170px;
+    position: absolute;
+    top: 0;
+    left: -50px;
+    border-radius: 12px;
+}
+
+.footer-gallery-img-4 img {
+    width: 236px;
+    height: 208px;
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    border-radius: 12px;
+}
+
+/* Animations (Copied from index.css) */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
