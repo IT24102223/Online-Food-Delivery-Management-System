@@ -37,6 +37,18 @@ public class FoodItem {
     public int getOrderCount() { return orderCount; }
     public void setOrderCount(int orderCount) { this.orderCount = orderCount; }
 
+    public void addFoodItem() {
+        // Logic to add food item, Implemented in FoodItemServlet
+    }
+
+    public void updateFoodItem() {
+        // Logic to update food item, Implemented in FoodItemServlet
+    }
+
+    public  void deleteFoodItem() {
+        // Logic to delete food item, Implemented in FoodItemServlet
+    }
+
     public String toCSV() {
         return String.format("%s,%s,%s,%.2f,%s,%b,%d",
                 foodId, name, description, price, categoryId, availability, orderCount);
