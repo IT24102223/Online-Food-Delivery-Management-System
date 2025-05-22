@@ -1,109 +1,152 @@
 package service;
 
-import model.*;
+import model.Order;
+import model.FoodItem;
 import jakarta.servlet.ServletContext;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OrderService {
-    private static final String ORDERS_FILE = "/WEB-INF/resources/data/orders.txt";
-    private static final String MENU_FILE = "/WEB-INF/resources/data/menu.txt";
+    private static final String FILE_PATH = "WEB-INF/resources/data/orders.txt";
+    private static final Logger LOGGER = Logger.getLogger(OrderService.class.getName());
+    private final ServletContext servletContext;
+    private final FoodItemService foodItemService;
 
-    public List<Order> getAllOrders(List<Customer> customers, List<FoodItem> foodItems, ServletContext context) {
+    public OrderService(ServletContext servletContext) {
+        this.servletContext = servletContext;
+        this.foodItemService = new FoodItemService(servletContext);
+    }
+
+    public void placeOrder(Order order) throws IOException {
+        List<Order> orders = getAllOrders();
+        orders.add(order);
+        try {
+            saveAllOrders(orders);
+            LOGGER.info("Successfully placed order " + order.getOrderId() + " in orders.txt");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Failed to save order " + order.getOrderId() + " to orders.txt", e);
+            throw e;
+        }
+    }
+
+    public List<Order> getAllOrders() throws IOException {
         List<Order> orders = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(context.getResourceAsStream(ORDERS_FILE)))) {
+        String realPath = servletContext.getRealPath(FILE_PATH);
+        if (realPath == null) {
+            LOGGER.severe("Unable to resolve real path for " + FILE_PATH);
+            throw new IOException("Unable to resolve real path for " + FILE_PATH);
+        }
+        LOGGER.info("Reading orders.txt from: " + realPath);
+        File file = new File(realPath);
+
+        if (!file.exists()) {
+            LOGGER.warning("orders.txt does not exist at " + realPath + ". Creating new file.");
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            return orders;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-            int lineNumber = 0;
             while ((line = reader.readLine()) != null) {
-                lineNumber++;
-                try {
-                    orders.add(Order.fromCSV(line, customers, foodItems));
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Skipping invalid order CSV at line " + lineNumber + ": " + e.getMessage());
+                String[] data = line.split(",");
+                Order order = Order.fromCSV(line);
+                List<FoodItem> items = new ArrayList<>();
+                if (data.length > 2 && !data[2].isEmpty()) {
+                    String[] itemIds = data[2].split(";");
+                    for (String itemId : itemIds) {
+                        if (!itemId.isEmpty()) {
+                            FoodItem item = foodItemService.getFoodItemById(itemId);
+                            if (item != null) {
+                                items.add(item);
+                            } else {
+                                LOGGER.warning("Food item with ID " + itemId + " not found for order " + order.getOrderId());
+                            }
+                        }
+                    }
                 }
+                order.setItems(items);
+                orders.add(order);
             }
         } catch (IOException e) {
-            System.err.println("Error loading orders from " + ORDERS_FILE + ": " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error reading orders.txt", e);
+            throw e;
         }
         return orders;
     }
 
-    public Order getOrderById(String orderId, Customer customer, ServletContext context) {
-        List<FoodItem> foodItems = loadFoodItems(context);
-        List<Customer> customers = customer != null ? List.of(customer) : new ArrayList<>();
-        List<Order> orders = getAllOrders(customers, foodItems, context);
-        return orders.stream()
-                .filter(o -> o.getOrderId().equals(orderId))
+    private void saveAllOrders(List<Order> orders) throws IOException {
+        String realPath = servletContext.getRealPath(FILE_PATH);
+        if (realPath == null) {
+            LOGGER.severe("Unable to resolve real path for " + FILE_PATH);
+            throw new IOException("Unable to resolve real path for " + FILE_PATH);
+        }
+        LOGGER.info("Writing to orders.txt at: " + realPath);
+        File file = new File(realPath);
+
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+            LOGGER.info("Created parent directories for " + realPath);
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Order order : orders) { // Fixed: Changed 'allOrders' to 'orders'
+                writer.write(order.toCSV());
+                writer.newLine();
+            }
+            LOGGER.info("Successfully wrote " + orders.size() + " orders to orders.txt");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error writing to orders.txt", e);
+            throw e;
+        }
+    }
+
+    public void updateOrderStatus(String orderId, String newStatus) throws IOException {
+        List<Order> orders = getAllOrders();
+        boolean updated = false;
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getOrderId().equals(orderId)) {
+                orders.get(i).setStatus(newStatus);
+                updated = true;
+                break;
+            }
+        }
+        if (!updated) {
+            LOGGER.warning("No order found with ID " + orderId + " for status update");
+            throw new IOException("Order with ID " + orderId + " not found");
+        }
+        saveAllOrders(orders);
+        LOGGER.info("Successfully updated status of order " + orderId + " to " + newStatus + " in orders.txt");
+    }
+
+    public void cancelOrder(String orderId) throws IOException {
+        updateOrderStatus(orderId, "Cancelled");
+    }
+
+    public Order getOrderById(String orderId) throws IOException {
+        return getAllOrders().stream()
+                .filter(order -> order.getOrderId().equals(orderId))
                 .findFirst()
                 .orElse(null);
     }
 
-    public void updateOrder(Order order, ServletContext context) {
-        List<FoodItem> foodItems = loadFoodItems(context);
-        List<Order> orders = getAllOrders(new ArrayList<>(), foodItems, context);
-        orders.removeIf(o -> o.getOrderId().equals(order.getOrderId()));
-        orders.add(order);
-        saveOrders(orders, context);
+    public List<Order> getConfirmedOrders() throws IOException {
+        return getAllOrders().stream()
+                .filter(order -> "Confirmed".equals(order.getStatus()))
+                .toList();
     }
 
-    public void cancelOrder(String orderId, String userId, ServletContext context) {
-        Order order = getOrderById(orderId, null, context);
-        if (order == null) {
-            throw new IllegalArgumentException("Order not found");
+    public void deleteOrder(String orderId) throws IOException {
+        List<Order> orders = getAllOrders();
+        boolean deleted = orders.removeIf(order -> order.getOrderId().equals(orderId));
+        if (!deleted) {
+            LOGGER.warning("No order found with ID " + orderId + " for deletion");
+            throw new IOException("Order with ID " + orderId + " not found");
         }
-        if (!order.getCustomer().getUserId().equals(userId)) {
-            throw new SecurityException("Not authorized to cancel this order");
-        }
-        order.cancel();
-        updateOrder(order, context);
-    }
-
-    public void updateOrderStatus(String orderId, String userId, Order.Status status, ServletContext context) {
-        Order order = getOrderById(orderId, null, context);
-        if (order == null) {
-            throw new IllegalArgumentException("Order not found");
-        }
-        if (!order.getCustomer().getUserId().equals(userId)) {
-            throw new SecurityException("Not authorized to update this order");
-        }
-        order.updateStatus(status);
-        updateOrder(order, context);
-    }
-
-    private void saveOrders(List<Order> orders, ServletContext context) {
-        try {
-            String realPath = context.getRealPath(ORDERS_FILE);
-            if (realPath == null) {
-                System.err.println("Cannot resolve real path for orders.txt");
-                throw new RuntimeException("Cannot resolve path for orders.txt");
-            }
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))) {
-                for (Order order : orders) {
-                    writer.write(order.toCSV() + "\n");
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Error saving orders to " + ORDERS_FILE + ": " + e.getMessage());
-            throw new RuntimeException("Failed to save orders", e);
-        }
-    }
-
-    private List<FoodItem> loadFoodItems(ServletContext context) {
-        List<FoodItem> foodItems = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(context.getResourceAsStream(MENU_FILE)))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                try {
-                    foodItems.add(FoodItem.fromCSV(line));
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Error parsing food item CSV: " + e.getMessage());
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Error loading food items from " + MENU_FILE + ": " + e.getMessage());
-        }
-        return foodItems;
+        saveAllOrders(orders);
+        LOGGER.info("Successfully deleted order " + orderId + " from orders.txt");
     }
 }
