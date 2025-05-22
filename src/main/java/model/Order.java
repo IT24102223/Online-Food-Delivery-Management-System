@@ -1,154 +1,91 @@
 package model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.Optional;
 
 public class Order {
-    private final String orderId;
-    private final Customer customer;
-    private final List<OrderItem> items;
-    private final double total;
-    private Status status;
-    private final LocalDateTime orderDate;
-    private LocalDateTime deliveryDate;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private String orderId;
+    private String userId;
+    private List<FoodItem> items;
+    private double totalAmount;
+    private String status;
+    private Date orderDate;
+    private String deliveryAddress;
 
-    public enum Status {
-        PENDING, PROCESSING, DELIVERED, CANCELLED
-    }
-
-    public Order(Customer customer, List<OrderItem> items) {
-        this.orderId = UUID.randomUUID().toString();
-        this.customer = customer;
-        this.items = new ArrayList<>(items);
-        this.total = calculateTotal();
-        this.status = Status.PENDING;
-        this.orderDate = LocalDateTime.now();
-        this.deliveryDate = null;
-    }
-
-    private Order(String orderId, Customer customer, List<OrderItem> items, double total,
-                  Status status, LocalDateTime orderDate, LocalDateTime deliveryDate) {
+    public Order(String orderId, String userId, List<FoodItem> items, double totalAmount, Date orderDate, String deliveryAddress, String status) {
         this.orderId = orderId;
-        this.customer = customer;
-        this.items = new ArrayList<>(items);
-        this.total = total;
-        this.status = status != null ? status : Status.PENDING;
+        this.userId = userId;
+        this.items = items;
+        this.totalAmount = totalAmount;
         this.orderDate = orderDate;
-        this.deliveryDate = deliveryDate;
+        this.deliveryAddress = deliveryAddress;
+        this.status = status;
     }
 
-    private double calculateTotal() {
-        return items.stream()
-                .mapToDouble(item -> item.getFoodItem().getPrice() * item.getQuantity())
-                .sum();
-    }
-
-    public void updateStatus(Status newStatus) {
-        if (status == Status.DELIVERED || status == Status.CANCELLED) {
-            throw new IllegalStateException("Cannot change status from " + status);
-        }
-        if (newStatus == Status.PENDING) {
-            throw new IllegalStateException("Cannot revert to PENDING");
-        }
-        this.status = newStatus;
-        if (newStatus == Status.DELIVERED) {
-            this.deliveryDate = LocalDateTime.now();
-        }
-    }
-
-    public void cancel() {
-        if (status == Status.DELIVERED || status == Status.CANCELLED) {
-            throw new IllegalStateException("Cannot cancel order in " + status + " status");
-        }
-        this.status = Status.CANCELLED;
-    }
-
+    // Getters and Setters
     public String getOrderId() { return orderId; }
-    public Customer getCustomer() { return customer; }
-    public List<OrderItem> getItems() { return new ArrayList<>(items); }
-    public double getTotal() { return total; }
-    public Status getStatus() { return status; }
-    public LocalDateTime getOrderDate() { return orderDate; }
-    public LocalDateTime getDeliveryDate() { return deliveryDate; }
+    public void setOrderId(String orderId) { this.orderId = orderId; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
+    public List<FoodItem> getItems() { return items; }
+    public void setItems(List<FoodItem> items) { this.items = items; }
+    public double getTotalAmount() { return totalAmount; }
+    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+    public Date getOrderDate() { return orderDate; }
+    public void setOrderDate(Date orderDate) { this.orderDate = orderDate; }
+    public String getDeliveryAddress() { return deliveryAddress; }
+    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
 
-    public String toCSV() {
-        String itemsStr = items.stream()
-                .map(item -> item.getFoodItem().getFoodId() + ":" + item.getQuantity())
-                .collect(Collectors.joining(";"));
-        String deliveryDateStr = deliveryDate != null ? deliveryDate.format(formatter) : "";
-        return String.join(",", orderId, customer.getUserId(), itemsStr,
-                String.format("%.2f", total), status.toString(), orderDate.format(formatter), deliveryDateStr);
+    // Methods from class diagram
+    public void createOrder() {
+        // Logic to initialize order, typically handled by servlet
     }
 
-    public static Order fromCSV(String csv, List<Customer> customers, List<FoodItem> foodItems) {
-        String[] data = csv.split(",", -1);
-        if (data.length < 6) {
-            throw new IllegalArgumentException("Invalid order CSV format: " + csv);
-        }
-        String orderId = data[0];
-        String customerId = data[1];
-        String itemsStr = data[2];
-        double total;
-        try {
-            total = Double.parseDouble(data[3]);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid total in order CSV: " + csv);
-        }
-        Status status;
-        try {
-            status = Status.valueOf(data[4].toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.err.println("Invalid status in order CSV: " + data[4] + ", defaulting to PENDING");
-            status = Status.PENDING;
-        }
-        LocalDateTime orderDate;
-        try {
-            orderDate = LocalDateTime.parse(data[5], formatter);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid order date in order CSV: " + csv);
-        }
-        LocalDateTime deliveryDate = null;
-        if (data.length > 6 && !data[6].isEmpty()) {
-            try {
-                deliveryDate = LocalDateTime.parse(data[6], formatter);
-            } catch (Exception e) {
-                System.err.println("Invalid delivery date in order CSV: " + data[6] + ", setting to null");
+    public double calculateTotal() {
+        double total = 0.0;
+        if (items != null) {
+            for (FoodItem item : items) {
+                total += item.getPrice();
             }
         }
+        return total;
+    }
 
-        Customer customer = customers.stream()
-                .filter(c -> customerId.equals(c.getUserId()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Customer not found for ID: " + customerId + " in provided list"));
+    public void updateStatus(String newStatus) {
+        this.status = newStatus;
+    }
 
-        List<OrderItem> items = new ArrayList<>();
-        for (String itemEntry : itemsStr.split(";")) {
-            String[] itemData = itemEntry.split(":");
-            if (itemData.length != 2) continue;
-            String foodId = itemData[0];
-            int quantity;
-            try {
-                quantity = Integer.parseInt(itemData[1]);
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid quantity in items: " + itemEntry);
-                continue;
-            }
-            FoodItem foodItem = foodItems.stream()
-                    .filter(f -> foodId.equals(f.getFoodId()))
-                    .findFirst()
-                    .orElse(null);
-            if (foodItem != null) {
-                items.add(new OrderItem(foodItem, quantity));
-            }
+    public void cancelOrder() {
+        this.status = "Cancelled";
+    }
+
+    // CSV serialization
+    public String toCSV() {
+        return String.format("%s,%s,%s,%.2f,%s,%s,%s",
+                orderId, userId, items.stream().map(FoodItem::getFoodId).reduce((a, b) -> a + ";" + b).orElse(""),
+                totalAmount, status, new java.text.SimpleDateFormat("yyyy-MM-dd").format(orderDate), deliveryAddress);
+    }
+
+    public static Order fromCSV(String csvLine) {
+        String[] data = csvLine.split(",");
+        List<FoodItem> items = new ArrayList<>();
+        // Split the item IDs (stored as semicolon-separated list in CSV)
+        String[] itemIds = data[2].split(";");
+        // Note: Reconstructing FoodItem list requires FoodItemService, which isn't accessible here.
+        // This should be handled by the caller (e.g., OrderService) after parsing.
+        Date orderDate;
+        try {
+            orderDate = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(data[5]);
+        } catch (java.text.ParseException e) {
+            // Fallback to current date if parsing fails
+            orderDate = new Date();
         }
-
-        return new Order(orderId, customer, items, total, status, orderDate, deliveryDate);
+        return new Order(
+                data[0], data[1], items, Double.parseDouble(data[3]),
+                orderDate, data[6], data[4]
+        );
     }
 }
